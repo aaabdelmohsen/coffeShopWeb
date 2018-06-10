@@ -24,6 +24,7 @@
 					th:text="'Welcome ' + ${session.username} + ''"></span>
 					&nbsp; &nbsp;
 				<a th:href="@{/logout}">Logout</a> <br />
+				<a th:href="@{/restClient}">Rest Client</a> <br />
 			</div>
 			<div
 				th:if="${session.role == 'USER' and session.userLoggedInCheck != null}">

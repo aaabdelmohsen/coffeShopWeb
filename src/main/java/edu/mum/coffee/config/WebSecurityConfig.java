@@ -17,41 +17,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
-
 	@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-				.antMatchers("/createProduct", "/editProduct", "/deleteProduct", "/createPerson").hasAnyAuthority("ADMIN")
-                .antMatchers("/userProfile", "/placeOrder").hasAnyAuthority("USER")
-				.anyRequest().permitAll()
-                .and()
-            .formLogin()
-				.loginPage("/login")
-				.usernameParameter("username").passwordParameter("password")
-				.defaultSuccessUrl("/login")
-				.failureUrl("/displayLogin")
-            	.and()
-            .logout()
-            	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.invalidateHttpSession(true)
-            	.logoutSuccessUrl("/products")
-                .permitAll();
-        http.csrf().disable();
-    }
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+				.antMatchers("/createProduct", "/editProduct", "/deleteProduct", "/createPerson", "/restClient")
+				.hasAnyAuthority("ADMIN").antMatchers("/userProfile", "/placeOrder").hasAnyAuthority("USER")
+				.anyRequest().permitAll().and().formLogin().loginPage("/login").usernameParameter("username")
+				.passwordParameter("password").defaultSuccessUrl("/login").failureUrl("/displayLogin").and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).invalidateHttpSession(true)
+				.logoutSuccessUrl("/products").permitAll();
+		http.csrf().disable();
+
+	}
 
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth){
+	public void configureGlobal(AuthenticationManagerBuilder auth) {
 
 		try {
 			auth.jdbcAuthentication().dataSource(dataSource)
-					.usersByUsernameQuery(
-							"select username,password, enabled from users where username=?")
-					.authoritiesByUsernameQuery(
-							"select username, role from user_roles where username=?");
+					.usersByUsernameQuery("select username,password, enabled from users where username=?")
+					.authoritiesByUsernameQuery("select username, role from user_roles where username=?");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//auth.inMemoryAuthentication().withUser("aimalkhan@uu.com").password("123").roles("ADMIN");
 	}
 }
