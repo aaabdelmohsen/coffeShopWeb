@@ -13,7 +13,7 @@ public class RestClientController {
 	
 	@GetMapping("/restClient")
 	public String restClient() {	
-		return "rest";
+		return "restClient";
 	}
 	
 	@PostMapping("/processResquest")
@@ -23,7 +23,7 @@ public class RestClientController {
 		Response response = restTemplate.postForObject(requestData.getUrl(), requestData.getBody(), Response.class);
 		System.out.println("response : " + response);
 		
-		return "rest";
+		return "restClient";
 	}
 	
 	

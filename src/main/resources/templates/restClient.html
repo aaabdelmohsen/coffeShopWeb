@@ -8,7 +8,7 @@
 <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-	<form method="post">
+	<form th:action="@{/processResquest}" method="post">
 		<div class="row" style="margin-top: 2%;">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
@@ -24,7 +24,6 @@
 				<br /> <input type="submit" class="btn btn-success"
 					style="float: right" value="Process Request" />
 			</div>
-			<div class="col-sm-3"></div>
 		</div>
 	</form>
 </body>
