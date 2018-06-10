@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Create Product</title>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<form th:action="@{/createProduct}" th:method="post">
+		<div class="row" style="margin-top: 2%;">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+
+				<div style="float: right"
+					th:if="${session.userLoggedInCheck != null}">
+					<span th:text="'Welcome ' + ${session.username} + ''"></span>
+					&nbsp; &nbsp; <a th:href="@{/logout}">Logout</a> <br />
+				</div>
+
+				<h2>Add New Product</h2>
+				<br /> <input class="form-control" type="text" name="productName"
+					placeholder="productName" th:required="required" /> <br /> <input
+					class="form-control" type="text" name="description"
+					placeholder="description" th:required="required" /> <br /> <input
+					class="form-control" type="number" name="price" placeholder="price"
+					th:required="required" /> <br /> <select name="productType"
+					class="form-control" th:required="required">
+					<option>BREAKFAST</option>
+					<option>LUNCH</option>
+					<option>DINNER</option>
+				</select> <br /> <input type="submit" class="btn btn-success"
+					style="float: right" value="Submit" />
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	</form>
+</body>
+</html>

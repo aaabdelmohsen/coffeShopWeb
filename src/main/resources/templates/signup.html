@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sign Up</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<form method="post">
+    <div class="row" style="margin-top: 2%;">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h2 style="text-align: center">Sign Up Form</h2>
+            <br/>
+            <input type="hidden" name="enabled"/>
+            <input type="hidden" name="person.enable"/>
+            <input class="form-control" type="text" name="person.firstName" placeholder="firstName" th:required="required" />
+            <br/>
+            <input class="form-control" type="text" name="person.lastName" placeholder="lastName" th:required="required"/>
+            <br/>
+            <input class="form-control" type="text" name="person.email" placeholder="email" th:required="required"/>
+            <br/>
+            <input class="form-control" type="text" name="person.address.city" placeholder="city" th:required="required"/>
+            <br/>
+            <input class="form-control" type="text" name="person.address.country" placeholder="country" th:required="required"/>
+            <br/>
+            <input class="form-control" type="text" name="person.address.state" placeholder="state" th:required="required"/>
+            <br/>
+            <input class="form-control" type="text" name="person.address.zipcode" placeholder="zipcode" th:required="required"/>
+            <br/>
+            <input class="form-control" type="number" name="person.phone" placeholder="phone" th:required="required"/>
+            <br/>
+            <input class="form-control" type="text" name="username" placeholder="username" th:required="required"/>
+            <br/>
+            <input class="form-control" type="password" name="password" placeholder="password" th:required="required"/>
+            <br/>
+            <span style="float: left"><a th:href="@{/displayLogin}">Already registered? Login here.</a> </span>
+            <input type="submit" class="btn btn-success" style="float: right" value="Submit"/>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</form>
+</body>
+</html>

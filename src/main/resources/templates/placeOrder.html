@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Place Order</title>
+<link
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" />
+
+<link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery.min.js}"></script>
+<script
+	th:src="@{//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/moment-with-locales.js}"></script>
+<script type="text/javascript"
+	th:src="@{/js/bootstrap-datetimepicker.js}"></script>
+<link rel="stylesheet"
+	th:href="@{/css/bootstrap-datetimepicker.min.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-3" id="cartItems">
+			<br />
+			<br />
+			<h2>Cart Items:</h2>
+		</div>
+		<div class="col-sm-7">
+			<div style="float: right"
+				th:if="${session.userLoggedInCheck != null}">
+				<span th:text="'Welcome ' + ${session.username} + ''"></span> &nbsp;
+				&nbsp; <a th:href="@{/logout}">Logout</a> <br />
+			</div>
+			<br />
+			<form th:action="@{/placeOrder}" th:method="post">
+				<br />
+				<br />
+				<h2>Create Order</h2>
+				<div class="form-group">
+					<h3>DateTime:</h3>
+					<br />
+					<div class='input-group date' id='datetimepicker1'>
+						<input name="txtDT" type='text' class="form-control"
+							th:required="required" /> <span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+				<div>
+					<h3>
+						OrderLine <span style="color: red; font-size: 15px;"> <strong>(Must
+								have at least one item in cart to create an order)</strong>
+						</span>
+					</h3>
+					<br />
+					<table class="table table-striped" style="width: 100%">
+						<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Description</th>
+								<th scope="col">Price</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr th:each="prod : ${products}">
+								<td th:text="${prod.productName}"></td>
+								<td th:text="${prod.description}"></td>
+								<td th:text="${prod.price}"></td>
+								<td><a href="#"
+									th:onclick="|addToCart('${prod.id}', '${prod.productName}', '${prod.price}', '${prod.description}', '${prod.productType}')|"><img
+										height="33px" width="33px" th:src="@{/images/cart.png}" /></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<br /> <input id="btnSubmit" style="float: right" type="submit"
+						value="Create Order" class="btn btn-success" />
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+
+			$('#btnSubmit').hide();
+
+			$('#datetimepicker1').datetimepicker();
+			$('#example').DataTable();
+		});
+
+		function addToCart(prodId, prodName, prodPrice, prodDesc, prodType) {
+
+			$('#btnSubmit').show();
+
+			var product = {
+				'id' : prodId,
+				'productName' : prodName,
+				'price' : prodPrice,
+				'description' : prodDesc,
+				'productType' : prodType
+			};
+
+			$.ajax({
+				url : '/addProductToCart',
+				type : 'POST',
+				contentType : 'application/json',
+				data : JSON.stringify(product)
+			});
+
+			$('#cartItems').append(
+					'<p>' + prodName + '........' + prodPrice + '</p>');
+		}
+	</script>
+</body>
+</html>
