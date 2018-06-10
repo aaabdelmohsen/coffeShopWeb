@@ -27,8 +27,7 @@
 			</div>
 			<div
 				th:if="${session.role == 'USER' and session.userLoggedInCheck != null}">
-				<a th:href="@{/placeOrder}" style="float: left">Place Order</a> <span>&nbsp;-
-					OR -&nbsp;</span> <a th:href="@{/userProfile}">Profile</a> <br />
+				<a th:href="@{/userProfile}">User Profile</a> <br />
 			</div>
 			<h2>List of Product</h2>
 			<a
