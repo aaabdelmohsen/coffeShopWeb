@@ -8,19 +8,17 @@
 <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-	<form th:action="@{/processResquest}" method="post">
+	<form method="post">
 		<div class="row" style="margin-top: 2%;">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<h2 style="text-align: center">Rest Client Form</h2>
-				<br /> <input class="form-control" type="text"
-					name="requestData.url" placeholder="URL" th:required="required" />
+				<br /> <input class="form-control" type="text" name="url"
+					placeholder="URL" th:required="required" /> <br />
+				<textarea class="form-control" name="body" placeholder="Request Body"
+					rows="10"></textarea>
 				<br />
-				<textarea class="form-control" name="requestData.body"
-					id="exampleFormControlTextarea1" rows="10"></textarea>
-				<br />
-				<textarea class="form-control" name="requestData.response"
-					id="exampleFormControlTextarea1" rows="10"></textarea>
+				<textarea class="form-control" placeholder="Response" th:text="${response}" rows="10"></textarea>
 				<br /> <input type="submit" class="btn btn-success"
 					style="float: right" value="Process Request" />
 			</div>
