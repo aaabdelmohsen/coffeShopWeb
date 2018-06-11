@@ -19,17 +19,14 @@ public class RestClientController {
 		return "restClient";
 	}
 
-	// @ModelAttribute("requestData") RequestData requestData, BindingResult result
 	@PostMapping("/restClient")
 	public String restClient(@ModelAttribute("requestData") RequestData requestData, Model model) {
 		RestTemplate restTemplate = new RestTemplate();
-		// String url = "https://api.github.com/users/mralexgray/repos";
 		String response = "";
 		if (requestData.getBody() != null && !requestData.getBody().equals(""))
 			response = restTemplate.postForObject(requestData.getUrl(), requestData.getBody(), String.class);
 		else
 			response = restTemplate.getForObject(requestData.getUrl(), String.class);
-		System.out.println("response : " + response);
 
 		model.addAttribute("response", response);
 
